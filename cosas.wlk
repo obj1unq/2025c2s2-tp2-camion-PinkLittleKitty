@@ -52,6 +52,6 @@ object bateríaAntiaérea {
 object residuosRadioactivos {
 	var property peso = 0
 	
-	method peso() { return self.peso() }
+	method peso() { return peso }
 	method nivelPeligrosidad() { return 200 }
 }

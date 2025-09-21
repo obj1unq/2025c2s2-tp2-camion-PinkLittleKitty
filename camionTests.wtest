@@ -70,4 +70,28 @@ describe "Camión de transporte" {
         assert.that(camion.cosasConMayorNivelPeligrosidad(200).isEmpty())
         assert.that(camion.cosasConMayorNivelPeligrosidadQue(residuosRadioactivos).isEmpty())
     }
+
+}
+describe "Puede circular en ruta" {
+    test "Ejemplo 1" {
+        camion.cargar(bumblebee)
+        ladrillos.cantidad(300)
+        camion.cargar(ladrillos)
+        assert.that(camion.puedeCircular(20))
+    }
+
+    test "Ejemplo 2" {
+        camion.cargar(bumblebee)
+        ladrillos.cantidad(400)
+        camion.cargar(ladrillos)
+        assert.notThat(camion.puedeCircular(20))
+    }
+
+    test "Ejemplo 3" {
+        bumblebee.transformado(true)
+        camion.cargar(bumblebee)
+        ladrillos.cantidad(300)
+        camion.cargar(ladrillos)
+        assert.notThat(camion.puedeCircular(20))
+    }
 }

@@ -2,9 +2,9 @@ import cosas.*
 
 object camion {
 	const property cosas = #{}
-	var property nivelPeligrosidad = 0
-	var property capacidad = 0
-	var property capacidadMaxima = 2500
+	var nivelPeligrosidad = 0
+	var capacidad = 0
+	const capacidadMaxima = 2500
 	const tara = 1000
 		
 	method cargar(unaCosa) {
@@ -12,6 +12,8 @@ object camion {
 			self.error("El camion ya tiene esa cosa cargada")
 		} else {
 			cosas.add(unaCosa)
+			capacidad = capacidad + unaCosa.peso()
+			nivelPeligrosidad = nivelPeligrosidad + unaCosa.nivelPeligrosidad()
 		}
 	}
 
@@ -20,6 +22,8 @@ object camion {
 			self.error("El camion no tiene esa cosa cargada")
 		} else {
 			cosas.remove(unaCosa)
+			capacidad = capacidad - unaCosa.peso()
+			nivelPeligrosidad = nivelPeligrosidad - unaCosa.nivelPeligrosidad()
 		}
 	}
 
@@ -49,5 +53,9 @@ object camion {
 
 	method cosasConMayorNivelPeligrosidadQue(cosaDada) {
 		return self.cosasConMayorNivelPeligrosidad(cosaDada.nivelPeligrosidad())
+	}
+
+	method puedeCircular(peligrosidad) {
+		return nivelPeligrosidad < peligrosidad && !self.pesoExcedido()
 	}
 }
