@@ -27,6 +27,10 @@ object camion {
 		}
 	}
 
+	method nivelPeligrosidad() {
+		return nivelPeligrosidad
+	}
+
 	method todoPesoPar() {
 		return cosas.all({cosa => cosa.peso() % 2 == 0})
 	}

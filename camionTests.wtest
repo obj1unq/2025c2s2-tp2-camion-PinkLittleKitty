@@ -95,3 +95,30 @@ describe "Puede circular en ruta" {
         assert.notThat(camion.puedeCircular(20))
     }
 }
+
+describe "Más cosas" {
+    test "Ejemplo 1" {
+        assert.that(contenedorPortuario.peso() == 100)
+        assert.that(contenedorPortuario.nivelPeligrosidad() == 0)
+    }
+
+    test "Ejemplo 2" {
+        contenedorPortuario.cargar(knightRider)
+        arenaGranel.peso(50)
+        contenedorPortuario.cargar(arenaGranel)
+        assert.that(contenedorPortuario.peso() == 650)
+        assert.that(contenedorPortuario.nivelPeligrosidad() == 10)
+    }
+
+    test "Ejemplo 3" {
+        embalajeSeguridad.envolver(knightRider)
+        assert.that(embalajeSeguridad.peso() == 500)
+        assert.that(embalajeSeguridad.nivelPeligrosidad() == 5)
+    }
+    
+    test "Ejemplo 4" {
+        embalajeSeguridad.envolver(bumblebee)
+        assert.that(embalajeSeguridad.peso() == 800)
+        assert.that(embalajeSeguridad.nivelPeligrosidad() == 7.5)
+    }
+}

@@ -55,3 +55,50 @@ object residuosRadioactivos {
 	method peso() { return peso }
 	method nivelPeligrosidad() { return 200 }
 }
+
+object contenedorPortuario {
+	const peso = 100
+	const contenido = #{}
+
+	method peso() { return peso + contenido.sum({cosa => cosa.peso()}) }
+	method nivelPeligrosidad() { return self.contenidoMasPeligroso()}
+
+	method cargar(unaCosa) {
+		if (contenido.contains(unaCosa)) {
+			self.error("El contenedor ya tiene esa cosa cargada")
+		} else {
+			contenido.add(unaCosa)
+		}
+	}
+
+	method descargar(unaCosa) {
+		if (!contenido.contains(unaCosa)) {
+			self.error("El contenedor no tiene esa cosa cargada")
+		} else {
+			contenido.remove(unaCosa)
+		}
+	}
+
+	method contenidoMasPeligroso() {
+		if (contenido.isEmpty()) {
+			return 0
+		} else {
+			return contenido.max({cosa => cosa.nivelPeligrosidad()}).nivelPeligrosidad()
+		}
+	}
+}
+
+object embalajeSeguridad {
+	var envuelve = null
+
+	method envolver(unaCosa) {
+		envuelve = unaCosa
+	}
+
+	method desenvolver() {
+		envuelve = null
+	}
+
+	method peso() { return envuelve.peso() }
+	method nivelPeligrosidad() { return envuelve.nivelPeligrosidad() / 2 }
+}
