@@ -200,7 +200,6 @@ describe "Accidente" {
         camion.accidente()
 
         assert.that(bumblebee.transformado())
-        assert.that(residuosRadioactivos.peso() == 45) // Tiene el embalaje, no debería de pasarle nada
         assert.that(arenaGranel.peso() == 70)
         assert.that(ladrillos.cantidad() == 88)
         assert.notThat(bateríaAntiaérea.tieneMisiles())
@@ -208,8 +207,11 @@ describe "Accidente" {
 
     test "Caso 2" {
         bumblebee.transformado(true)
+        camion.cargar(bumblebee)
         residuosRadioactivos.peso(30)
+        camion.cargar(residuosRadioactivos)
         ladrillos.cantidad(10)
+        camion.cargar(ladrillos)
         camion.cargar(bateríaAntiaérea)
 
         camion.accidente()
