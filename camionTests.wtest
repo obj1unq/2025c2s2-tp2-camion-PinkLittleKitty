@@ -181,3 +181,41 @@ describe "TotalBultos" {
         assert.that(camion.cantidadBultos() == 4)
     }
 }
+
+describe "Accidente" {
+    test "Caso 1" {
+        contenedorPortuario.cargar(knightRider)
+        contenedorPortuario.cargar(bumblebee)
+        camion.cargar(contenedorPortuario)
+        residuosRadioactivos.peso(30)
+        embalajeSeguridad.envolver(residuosRadioactivos)
+        camion.cargar(embalajeSeguridad)
+        arenaGranel.peso(50)
+        camion.cargar(arenaGranel)
+        ladrillos.cantidad(100)
+        camion.cargar(ladrillos)
+        bateríaAntiaérea.tieneMisiles(true)
+        camion.cargar(bateríaAntiaérea)
+
+        camion.accidente()
+
+        assert.that(bumblebee.transformado())
+        assert.that(residuosRadioactivos.peso() == 45) // Tiene el embalaje, no debería de pasarle nada
+        assert.that(arenaGranel.peso() == 70)
+        assert.that(ladrillos.cantidad() == 88)
+        assert.notThat(bateríaAntiaérea.tieneMisiles())
+    }
+
+    test "Caso 2" {
+        bumblebee.transformado(true)
+        residuosRadioactivos.peso(30)
+        ladrillos.cantidad(10)
+        camion.cargar(bateríaAntiaérea)
+
+        camion.accidente()
+        assert.notThat(bumblebee.transformado())
+        assert.that(residuosRadioactivos.peso() == 45)
+        assert.that(ladrillos.cantidad() == 0)
+        assert.notThat(bateríaAntiaérea.tieneMisiles())
+    }
+}
