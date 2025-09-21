@@ -88,4 +88,57 @@ object camion {
 		nivelPeligrosidad = cosas.sum({cosa => cosa.nivelPeligrosidad()})
 		capacidad = cosas.sum({cosa => cosa.peso()})
 	}
+
+	method transportar(destino, camino) {
+		if (camino.puedeCircular(self)) {
+			destino.cargarTodo(cosas)
+			cosas.clear()
+			nivelPeligrosidad = 0
+			capacidad = 0
+		} else {
+			self.error("El camino no puede ser recorrido")
+		}
+	}
+}
+
+object ruta9 {
+	method puedeCircular(camion) {
+		return camion.puedeCircular(20)
+	}
+}
+
+object caminosVecinales {
+	var pesoMaximoPermitido = 3000
+
+	method pesoMaximoPermitido(peso) {
+		pesoMaximoPermitido = peso
+	}
+
+	method puedeCircular(camion) {
+		return camion.pesoTotal() <= pesoMaximoPermitido
+	}
+}
+
+object almacen {
+	var property cosas = #{}
+	
+	method cargarTodo(nuevasCosas) {
+		cosas.addAll(nuevasCosas)
+	}
+
+	method cargar(unaCosa) {
+		if (cosas.contains(unaCosa)) {
+			self.error("El almacén ya tiene esa cosa cargada")
+		} else {
+			cosas.add(unaCosa)
+		}
+	}
+
+	method descargar(unaCosa) {
+		if (!cosas.contains(unaCosa)) {
+			self.error("El almacén no tiene esa cosa cargada")
+		} else {
+			cosas.remove(unaCosa)
+		}
+	}
 }
