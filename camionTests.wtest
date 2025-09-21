@@ -30,4 +30,17 @@ describe "Camión de transporte" {
         assert.that(camion.hayAlgoQuePese(800))
         assert.notThat(camion.hayAlgoQuePese(500))
     }
+
+    test "peso y exceso de peso" {
+        assert.that(camion.pesoTotal() == 1000)
+        camion.cargar(bumblebee)
+        assert.that(camion.pesoTotal() == 1800)
+        ladrillos.cantidad(300)
+        camion.cargar(ladrillos)
+        assert.that(camion.pesoTotal() == 2400)
+        knightRider.peso()
+        camion.cargar(knightRider)
+        assert.that(camion.pesoTotal() == 2900)
+        assert.that(camion.pesoExcedido())
+    }
 }
