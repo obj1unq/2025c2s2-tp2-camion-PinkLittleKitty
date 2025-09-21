@@ -131,3 +131,15 @@ test "Tiene algo que pese entre" {
     assert.that(camion.tieneAlgoQuePeseEntre(5, 1000))
     assert.notThat(camion.tieneAlgoQuePeseEntre(900, 1000))
 }
+
+describe "Cosa más pesada" {
+    test "Ejemplo 1" {
+        camion.cargar(bumblebee)
+        ladrillos.cantidad(300)
+        camion.cargar(ladrillos)
+        assert.that(camion.cosaMásPesada() == bumblebee)
+    }
+    test "Ejemplo 2" {
+        assert.throwsExceptionWithMessage("El camión no tiene cosas cargadas", {camion.cosaMásPesada()})
+    }
+}

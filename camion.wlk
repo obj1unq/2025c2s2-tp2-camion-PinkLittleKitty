@@ -66,4 +66,12 @@ object camion {
 	method tieneAlgoQuePeseEntre(min, max) {
 		return cosas.any({cosa => cosa.peso() >= min && cosa.peso() <= max})
 	}
+
+	method cosaMásPesada() {
+		if (cosas.isEmpty()) {
+			self.error("El camión no tiene cosas cargadas")
+		} else {
+			return cosas.max({cosa => cosa.peso()})
+		}
+	}
 }
