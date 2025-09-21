@@ -1,4 +1,5 @@
 object knightRider {
+	method cantidadBultos() { return 1 }
 	method peso() { return 500 }
 	method nivelPeligrosidad() { return 10 }
 }
@@ -8,11 +9,14 @@ object arenaGranel {
 
 	method peso() { return peso }
 	method nivelPeligrosidad() { return 1 }
+	method cantidadBultos() { return 1 }
 }
 
 object bumblebee {
 	var property transformado = false
+
 	method peso() { return 800}
+	
 	method nivelPeligrosidad() { 
 		if (self.transformado()) {
 			return 30
@@ -20,6 +24,8 @@ object bumblebee {
 			return 15
 		}
 	}
+
+	method cantidadBultos() { return 2 }
 }
 
 object ladrillos {
@@ -27,6 +33,15 @@ object ladrillos {
 
 	method peso() { return cantidad * 2 }
 	method nivelPeligrosidad() { return 2 }
+	method cantidadBultos() {
+		if (cantidad <= 100) {
+			return 1
+		} else if (cantidad <= 300) {
+			return 2
+		} else {
+			return 3
+		}
+	}
 }
 
 object bateríaAntiaérea {
@@ -47,6 +62,14 @@ object bateríaAntiaérea {
 			return 0
 		}
 	}
+
+	method cantidadBultos() {
+		if (self.tieneMisiles()) {
+			return 2
+		} else {
+			return 1
+		}
+	}
 }
 
 object residuosRadioactivos {
@@ -54,6 +77,7 @@ object residuosRadioactivos {
 	
 	method peso() { return peso }
 	method nivelPeligrosidad() { return 200 }
+	method cantidadBultos() { return 1 }
 }
 
 object contenedorPortuario {
@@ -86,6 +110,7 @@ object contenedorPortuario {
 			return contenido.max({cosa => cosa.nivelPeligrosidad()}).nivelPeligrosidad()
 		}
 	}
+	method cantidadBultos() { return 1 + contenido.sum(({cosa => cosa.cantidadBultos()})) }
 }
 
 object embalajeSeguridad {
@@ -101,4 +126,5 @@ object embalajeSeguridad {
 
 	method peso() { return envuelve.peso() }
 	method nivelPeligrosidad() { return envuelve.nivelPeligrosidad() / 2 }
+	method cantidadBultos() { return 2 }
 }

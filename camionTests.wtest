@@ -143,3 +143,41 @@ describe "Cosa más pesada" {
         assert.throwsExceptionWithMessage("El camión no tiene cosas cargadas", {camion.cosaMásPesada()})
     }
 }
+
+test "Pesos" {
+    camion.cargar(bumblebee)
+    ladrillos.cantidad(300)
+    camion.cargar(ladrillos)
+    assert.that(camion.pesos() == [800, 600])
+}
+
+describe "TotalBultos" {
+    test "Caso 1" {
+        contenedorPortuario.cargar(knightRider)
+        contenedorPortuario.cargar(bumblebee)
+        camion.cargar(contenedorPortuario)
+        embalajeSeguridad.envolver(residuosRadioactivos)
+        camion.cargar(embalajeSeguridad)
+        camion.cargar(arenaGranel)
+        ladrillos.cantidad(50)
+        camion.cargar(ladrillos)
+        camion.cargar(bateríaAntiaérea)
+        assert.that(camion.cantidadBultos() == 9)
+    }
+
+    test "Caso 2" {
+        ladrillos.cantidad(150)
+        camion.cargar(ladrillos)
+        bateríaAntiaérea.tieneMisiles(true)
+        camion.cargar(bateríaAntiaérea)
+        camion.cargar(contenedorPortuario)
+        assert.that(camion.cantidadBultos() == 5 )
+    }
+
+    test "Caso 3" {
+        ladrillos.cantidad(350)
+        camion.cargar(ladrillos)
+        camion.cargar(arenaGranel)
+        assert.that(camion.cantidadBultos() == 4)
+    }
+}
