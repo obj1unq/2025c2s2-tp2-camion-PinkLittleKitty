@@ -122,3 +122,12 @@ describe "Más cosas" {
         assert.that(embalajeSeguridad.nivelPeligrosidad() == 7.5)
     }
 }
+
+test "Tiene algo que pese entre" {
+    camion.cargar(bumblebee)
+    ladrillos.cantidad(300)
+    camion.cargar(ladrillos)
+    assert.notThat(camion.tieneAlgoQuePeseEntre(5, 100))
+    assert.that(camion.tieneAlgoQuePeseEntre(5, 1000))
+    assert.notThat(camion.tieneAlgoQuePeseEntre(900, 1000))
+}
