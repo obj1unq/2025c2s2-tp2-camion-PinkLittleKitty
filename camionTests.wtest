@@ -1,0 +1,22 @@
+import camion.*
+import cosas.*
+
+describe "Camión de transporte" {
+    test "Carga y descarga" {
+        camion.cargar(bumblebee)
+        assert.that(camion.cosas().contains(bumblebee))
+        camion.cargar(knightRider)
+        assert.that(camion.cosas().contains(knightRider))
+        assert.that(camion.cosas().contains(bumblebee))
+        camion.descargar(bumblebee)
+        assert.notThat(camion.cosas().contains(bumblebee))
+        assert.throwsExceptionWithMessage("El camion ya tiene esa cosa cargada", {camion.cargar(knightRider)})
+        assert.throwsExceptionWithMessage("El camion no tiene esa cosa cargada", {camion.descargar(bumblebee)})
+    }
+    test "peso par" {
+        camion.cargar(bumblebee)
+        arenaGranel.peso(50)
+        camion.cargar(arenaGranel)
+        assert.that(camion.todoPesoPar())
+    }
+}
