@@ -18,5 +18,16 @@ describe "Camión de transporte" {
         arenaGranel.peso(50)
         camion.cargar(arenaGranel)
         assert.that(camion.todoPesoPar())
+        arenaGranel.peso(51)
+        assert.notThat(camion.todoPesoPar())
+    }
+
+    test "Hay alguno que pesa" {
+        camion.cargar(bumblebee)
+        camion.cargar(arenaGranel)
+        arenaGranel.peso(50)
+        assert.that(camion.hayAlgoQuePese(50))
+        assert.that(camion.hayAlgoQuePese(800))
+        assert.notThat(camion.hayAlgoQuePese(500))
     }
 }
