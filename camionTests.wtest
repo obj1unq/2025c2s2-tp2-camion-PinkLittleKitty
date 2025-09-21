@@ -13,6 +13,7 @@ describe "Camión de transporte" {
         assert.throwsExceptionWithMessage("El camion ya tiene esa cosa cargada", {camion.cargar(knightRider)})
         assert.throwsExceptionWithMessage("El camion no tiene esa cosa cargada", {camion.descargar(bumblebee)})
     }
+
     test "peso par" {
         camion.cargar(bumblebee)
         arenaGranel.peso(50)
@@ -42,5 +43,19 @@ describe "Camión de transporte" {
         camion.cargar(knightRider)
         assert.that(camion.pesoTotal() == 2900)
         assert.that(camion.pesoExcedido())
+    }
+
+    test "El de nivel" {
+        camion.cargar(bumblebee)
+        camion.cargar(bateríaAntiaérea)
+        camion.cargar(residuosRadioactivos)
+        assert.that(camion.cualTieneNivelPeligrosidad(0) == #{bateríaAntiaérea})
+        assert.that(camion.cualTieneNivelPeligrosidad(15) == #{bumblebee})
+        assert.that(camion.cualTieneNivelPeligrosidad(200) == #{residuosRadioactivos})
+        assert.that(camion.cualTieneNivelPeligrosidad(30).isEmpty())
+        bumblebee.transformado(true)
+        assert.that(camion.cualTieneNivelPeligrosidad(30) == #{bumblebee})
+        bateríaAntiaérea.tieneMisiles(true)
+        assert.that(camion.cualTieneNivelPeligrosidad(100) == #{bateríaAntiaérea})
     }
 }

@@ -10,8 +10,6 @@ object camion {
 	method cargar(unaCosa) {
 		if (cosas.contains(unaCosa)) {
 			self.error("El camion ya tiene esa cosa cargada")
-		} else if (unaCosa.nivelPeligrosidad() + self.nivelPeligrosidad() > 50) {
-			self.error("El camion no puede cargar esa cosa por su nivel de peligrosidad")
 		} else {
 			cosas.add(unaCosa)
 		}
@@ -39,5 +37,9 @@ object camion {
 
 	method pesoExcedido() {
 		return self.pesoTotal() > capacidadMaxima
+	}
+
+	method cualTieneNivelPeligrosidad(cantidad) {
+		return cosas.filter({cosa => cosa.nivelPeligrosidad() == cantidad})
 	}
 }

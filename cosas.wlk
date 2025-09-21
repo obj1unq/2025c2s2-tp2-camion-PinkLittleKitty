@@ -15,9 +15,9 @@ object bumblebee {
 	method peso() { return 800}
 	method nivelPeligrosidad() { 
 		if (self.transformado()) {
-			return 15
-		} else {
 			return 30
+		} else {
+			return 15
 		}
 	}
 }
