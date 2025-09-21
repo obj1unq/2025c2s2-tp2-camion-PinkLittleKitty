@@ -58,4 +58,16 @@ describe "Camión de transporte" {
         bateríaAntiaérea.tieneMisiles(true)
         assert.that(camion.cualTieneNivelPeligrosidad(100) == #{bateríaAntiaérea})
     }
+
+    test "Cosas Peligrosas" {
+        camion.cargar(knightRider)
+        camion.cargar(bateríaAntiaérea)
+        bateríaAntiaérea.tieneMisiles(true)
+        assert.that(camion.cosasConMayorNivelPeligrosidad(15) == #{bateríaAntiaérea})
+        assert.that(camion.cosasConMayorNivelPeligrosidadQue(bumblebee) == #{bateríaAntiaérea})
+        assert.that(camion.cosasConMayorNivelPeligrosidad(2) == #{knightRider, bateríaAntiaérea})
+        assert.that(camion.cosasConMayorNivelPeligrosidadQue(ladrillos) == #{knightRider, bateríaAntiaérea})
+        assert.that(camion.cosasConMayorNivelPeligrosidad(200).isEmpty())
+        assert.that(camion.cosasConMayorNivelPeligrosidadQue(residuosRadioactivos).isEmpty())
+    }
 }

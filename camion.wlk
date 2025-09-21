@@ -42,4 +42,12 @@ object camion {
 	method cualTieneNivelPeligrosidad(cantidad) {
 		return cosas.filter({cosa => cosa.nivelPeligrosidad() == cantidad})
 	}
+
+	method cosasConMayorNivelPeligrosidad(cantidad) {
+		return cosas.filter({cosa => cosa.nivelPeligrosidad() > cantidad})
+	}
+
+	method cosasConMayorNivelPeligrosidadQue(cosaDada) {
+		return self.cosasConMayorNivelPeligrosidad(cosaDada.nivelPeligrosidad())
+	}
 }
